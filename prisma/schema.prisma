@@ -111,7 +111,7 @@ model UserTaskProgress {
 }
 
 model TaskStatus {
-  id    Int    @id
+  id    Int    @id @default(autoincrement())
   value String @db.VarChar(255)
 
   UserTaskProgress UserTaskProgress[]
