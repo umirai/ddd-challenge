@@ -9,3 +9,109 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ----------------------------------------
+
+model Admin {
+  id        String @id
+  lastName  String @map("last_name") @db.VarChar(255)
+  firstName String @map("first_name") @db.VarChar(255)
+  email     String @unique @db.VarChar(255)
+
+  @@map("admnis")
+}
+
+model User {
+  id        String @id
+  lastName  String @map("last_name") @db.VarChar(255)
+  firstName String @map("first_name") @db.VarChar(255)
+  email     String @unique @db.VarChar(255)
+  statusId  Int    @default(1) @map("status_id")
+
+  status           UserStatus         @relation(fields: [statusId], references: [id])
+  UserBelongsPair  UserBelongsPair[]
+  UserBelongsTeam  UserBelongsTeam[]
+  UserTaskProgress UserTaskProgress[]
+  @@map("users")
+}
+
+model UserStatus {
+  id    Int    @id @default(autoincrement())
+  value String @db.VarChar(255)
+
+  users User[]
+  @@map("user_status")
+}
+
+model Team {
+  id       String @id
+  teamName Int    @map("team_name") @db.SmallInt
+
+  userBelongsPair UserBelongsTeam[]
+  @@map("teams")
+}
+
+model Pair {
+  id       String @id
+  pairName String @map("pair_name") @db.VarChar(255)
+
+  userBelongsPair UserBelongsPair[]
+  @@map("pairs")
+}
+
+model UserBelongsPair {
+  userId String @map("user_id")
+  pairId String @map("pair_id")
+
+  user User @relation(fields: [userId], references: [id])
+  pair Pair @relation(fields: [pairId], references: [id])
+  @@unique(userId)
+}
+
+model UserBelongsTeam {
+  userId String @map("user_id")
+  teamId String @map("team_id")
+
+  user User @relation(fields: [userId], references: [id])
+  team Team @relation(fields: [teamId], references: [id])
+  @@unique(userId)
+}
+
+model Task {
+  id             String @id
+  taskCategoryId Int    @map("task_category_id")
+  title          String @db.VarChar(255)
+  description    String @db.Text
+
+  taskCategory     TaskCategory       @relation(fields: [taskCategoryId], references: [id])
+  UserTaskProgress UserTaskProgress[]
+  @@map("tasks")
+}
+
+model TaskCategory {
+  id    Int    @id @default(autoincrement())
+  value String @db.VarChar(255)
+
+  task Task[]
+  @@map("task_categories")
+}
+
+model UserTaskProgress {
+  userId       String @map("user_id")
+  taskId       String @map("task_id")
+  taskStatusId Int    @map("task_status_id")
+
+  user       User       @relation(fields: [userId], references: [id])
+  task       Task       @relation(fields: [taskId], references: [id])
+  taskStatus TaskStatus @relation(fields: [taskStatusId], references: [id])
+  @@unique([userId, taskId])
+  @@map("user_task_progress")
+}
+
+model TaskStatus {
+  id    Int    @id
+  value String @db.VarChar(255)
+
+  UserTaskProgress UserTaskProgress[]
+  @@map("task_status")
+}
