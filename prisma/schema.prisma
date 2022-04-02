@@ -18,7 +18,7 @@ model Admin {
   firstName String @map("first_name") @db.VarChar(255)
   email     String @unique @db.VarChar(255)
 
-  @@map("admnis")
+  @@map("admins")
 }
 
 model User {
