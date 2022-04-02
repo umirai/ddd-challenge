@@ -66,6 +66,7 @@ model UserBelongsPair {
   user User @relation(fields: [userId], references: [id])
   pair Pair @relation(fields: [pairId], references: [id])
   @@unique(userId)
+  @@map("user_belongs_pair")
 }
 
 model UserBelongsTeam {
@@ -75,6 +76,7 @@ model UserBelongsTeam {
   user User @relation(fields: [userId], references: [id])
   team Team @relation(fields: [teamId], references: [id])
   @@unique(userId)
+  @@map("user_belongs_team")
 }
 
 model Task {
