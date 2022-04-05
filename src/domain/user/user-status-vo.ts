@@ -1,4 +1,4 @@
-export const UserStatusId = {
+const UserStatusId = {
   Active: 1,
   InActive: 2,
   Withdrawn: 3,
@@ -15,5 +15,9 @@ export class UserStatusVO {
 
   get value() {
     return this._value;
+  }
+
+  get statusId() {
+    return UserStatusId[this._value];
   }
 }
