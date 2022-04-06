@@ -4,7 +4,7 @@ export const createTaskCategories = async (prisma) => {
     { value: 'データベース' },
     { value: 'テスト' },
     { value: '設計' },
-  ];
+  ]
 
-  await prisma.taskCategory.createMany({ data: taskCategories });
-};
+  await prisma.taskCategory.createMany({ data: taskCategories })
+}

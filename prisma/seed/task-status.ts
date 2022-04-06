@@ -3,7 +3,7 @@ export const createTaskStatus = async (prisma) => {
     { value: 'Default' },
     { value: 'InProgress' },
     { value: 'Done' },
-  ];
+  ]
 
-  await prisma.taskStatus.createMany({ data: taskStatus });
-};
+  await prisma.taskStatus.createMany({ data: taskStatus })
+}

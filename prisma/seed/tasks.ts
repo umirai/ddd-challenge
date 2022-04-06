@@ -90,7 +90,7 @@ export const createTasks = async (prisma) => {
       title: 'DDDを実践しよう',
       description: '説明',
     },
-  ];
+  ]
 
-  await prisma.task.createMany({ data: tasks });
-};
+  await prisma.task.createMany({ data: tasks })
+}

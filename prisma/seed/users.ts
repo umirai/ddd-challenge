@@ -91,7 +91,7 @@ export const createUsers = async (prisma) => {
       email: 't.yuya@gmail.com',
       statusId: 1,
     },
-  ];
+  ]
 
-  await prisma.user.createMany({ data: users });
-};
+  await prisma.user.createMany({ data: users })
+}

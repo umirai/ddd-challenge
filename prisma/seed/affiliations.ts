@@ -3,7 +3,7 @@ export const createAffiliations = async (prisma) => {
     { id: '1', teamName: 1 },
     { id: '2', teamName: 2 },
     { id: '3', teamName: 3 },
-  ];
+  ]
 
   const pairs = [
     { id: '1', pairName: 'a' },
@@ -11,7 +11,7 @@ export const createAffiliations = async (prisma) => {
     { id: '3', pairName: 'a' },
     { id: '4', pairName: 'b' },
     { id: '5', pairName: 'a' },
-  ];
+  ]
 
   const affiliations = [
     { userId: '1', teamId: '1', pairId: '1' },
@@ -27,18 +27,18 @@ export const createAffiliations = async (prisma) => {
     { userId: '11', teamId: '3', pairId: '5' },
     { userId: '12', teamId: '3', pairId: '5' },
     { userId: '13', teamId: '3', pairId: '5' },
-  ];
+  ]
 
   const userBelongsTeamData = affiliations.map((aff) => {
-    return { userId: aff.userId, teamId: aff.teamId };
-  });
+    return { userId: aff.userId, teamId: aff.teamId }
+  })
 
   const userBelongsPairData = affiliations.map((aff) => {
-    return { userId: aff.userId, pairId: aff.pairId };
-  });
+    return { userId: aff.userId, pairId: aff.pairId }
+  })
 
-  await prisma.team.createMany({ data: teams });
-  await prisma.pair.createMany({ data: pairs });
-  await prisma.userBelongsTeam.createMany({ data: userBelongsTeamData });
-  await prisma.userBelongsPair.createMany({ data: userBelongsPairData });
-};
+  await prisma.team.createMany({ data: teams })
+  await prisma.pair.createMany({ data: pairs })
+  await prisma.userBelongsTeam.createMany({ data: userBelongsTeamData })
+  await prisma.userBelongsPair.createMany({ data: userBelongsPairData })
+}

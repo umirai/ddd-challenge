@@ -3,7 +3,7 @@ export const createUserStatus = async (prisma) => {
     { value: 'Active' },
     { value: 'Inactive' },
     { value: 'Withdrawn' },
-  ];
+  ]
 
-  await prisma.userStatus.createMany({ data: userStatus });
-};
+  await prisma.userStatus.createMany({ data: userStatus })
+}

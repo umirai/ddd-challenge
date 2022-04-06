@@ -6,7 +6,7 @@ export const createAdmins = async (prisma) => {
       firstName: 'Shunya',
       email: 'm.shunya@gmail.com',
     },
-  ];
+  ]
 
-  await prisma.admin.createMany({ data: admins });
-};
+  await prisma.admin.createMany({ data: admins })
+}

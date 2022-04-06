@@ -1,30 +1,30 @@
-import { UserNameVO } from './user-name-vo';
-import { UserEmailVO } from './user-email-vo';
-import { UserStatusVO } from './user-status-vo';
+import { UserNameVO } from './user-name-vo'
+import { UserEmailVO } from './user-email-vo'
+import { UserStatusVO } from './user-status-vo'
 
 export type UserProps = {
-  id: string;
-  lastName: UserNameVO;
-  firstName: UserNameVO;
-  email: UserEmailVO;
-  status: UserStatusVO;
-};
+  id: string
+  lastName: UserNameVO
+  firstName: UserNameVO
+  email: UserEmailVO
+  status: UserStatusVO
+}
 
 export class User {
-  private _props: UserProps;
+  private _props: UserProps
 
   public constructor(props: UserProps) {
-    this._props = { ...props };
+    this._props = { ...props }
   }
 
   get allProps() {
-    const { id, lastName, firstName, email, status } = this._props;
+    const { id, lastName, firstName, email, status } = this._props
     return {
       id: id,
       lastName: lastName.value,
       firstName: firstName.value,
       email: email.value,
       status: status.value,
-    };
+    }
   }
 }
