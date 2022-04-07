@@ -1,4 +1,4 @@
-const UserStatusId = {
+export const UserStatusId = {
   Active: 1,
   InActive: 2,
   Withdrawn: 3,
