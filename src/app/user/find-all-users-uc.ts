@@ -1,7 +1,7 @@
 import { IUserRepo } from "src/domain/user/user-repo-interface"
 import { UserDTO } from "src/app/user/user-dto"
 
-export class FindAllUC {
+export class FindAllUsersUC {
   private readonly userRepo: IUserRepo
 
   public constructor(userRepo: IUserRepo) {
