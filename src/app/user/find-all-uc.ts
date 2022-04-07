@@ -1,7 +1,7 @@
 import { IUserRepo } from "src/domain/user/user-repo-interface"
 import { UserDTO } from "src/app/user/user-dto"
 
-export class GetUsersUC {
+export class FindAllUC {
   private readonly userRepo: IUserRepo
 
   public constructor(userRepo: IUserRepo) {
@@ -10,7 +10,7 @@ export class GetUsersUC {
 
   public async do(): Promise<UserDTO[]> {
     try {
-      const users = await this.userRepo.getUsers()
+      const users = await this.userRepo.findAll()
       return users.map((user) => {
         const { id, lastName, firstName, email, status } = user.allProps
         return new UserDTO(id, lastName, firstName, email, status)

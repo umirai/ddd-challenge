@@ -12,7 +12,7 @@ export class UserRepo implements IUserRepo{
     this.prisma = prisma
   }
 
-  public async getUsers(): Promise<User[]> {
+  public async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany({
       select: {
         id: true,
