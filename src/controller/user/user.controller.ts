@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import { UserRepo } from 'src/infra/user/user-repo'
 import { User } from 'src/domain/user/user'
-import { UserDTO } from 'src/app/user/user-dto'
+import { UserDTO } from 'src/domain/user/user-dto'
 import { FindAllUsersUC } from 'src/app/user/find-all-users-uc'
 import { CreateUserParams, CreateUserUC } from 'src/app/user/create-user-uc'
 
