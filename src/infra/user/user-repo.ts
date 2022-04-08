@@ -35,6 +35,31 @@ export class UserRepo implements IUserRepo{
     })
   }
 
+  public async findById(userId: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        lastName: true,
+        firstName: true,
+        email: true,
+        status: {
+          select: { value: true }
+        }
+      }
+    })
+
+    if (user === null) throw new Error('参加者が見つかりませんでした。')
+
+    return new User({
+      id: user.id,
+      lastName: new UserNameVO(user.lastName),
+      firstName: new UserNameVO(user.firstName),
+      email: new UserEmailVO(user.email),
+      status: new UserStatusVO(user.status.value as UserStatusProps)
+    })
+  }
+
   public async findByEmail(userEmailVO: UserEmailVO): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { email: userEmailVO.value },
