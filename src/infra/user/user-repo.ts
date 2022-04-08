@@ -73,4 +73,18 @@ export class UserRepo implements IUserRepo{
     })
     return user
   }
+
+  public async update(user: User): Promise<User> {
+    const { id, lastName, firstName, email, status } = user.allProps
+    await this.prisma.user.update({
+      where: { id: id },
+      data: {
+        lastName: lastName,
+        firstName: firstName,
+        email: email,
+        statusId: UserStatusId[status]
+      }
+    })
+    return user
+  }
 }
