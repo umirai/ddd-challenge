@@ -17,7 +17,7 @@ export class UpdateUserStatusUC {
     this.userRepo = userRepo
   }
 
-  public async do(params: UpdateUserStatusParams) {
+  public async do(params: UpdateUserStatusParams): Promise<User> {
     const user = await this.userRepo.findById(params.id)
     const { lastName, firstName, email } = user.allProps
     const newUser = new User({

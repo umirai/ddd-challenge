@@ -19,7 +19,7 @@ export class CreateUserUC {
     this.userRepo = userRepo
   }
 
-  public async do(params: CreateUserParams) {
+  public async do(params: CreateUserParams): Promise<User> {
     const { lastName, firstName, email } = params
 
     const userService = new UserService(this.userRepo)
