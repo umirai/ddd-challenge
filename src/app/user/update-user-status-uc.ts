@@ -1,9 +1,8 @@
 import { User } from "src/domain/user/user"
 import { UserNameVO } from "src/domain/user/user-name-vo"
 import { UserEmailVO } from "src/domain/user/user-email-vo"
-import { UserStatusVO } from "src/domain/user/user-status-vo"
+import { UserStatusVO, UserStatusProps } from "src/domain/user/user-status-vo"
 import { IUserRepo } from "src/domain/user/user-repo-interface"
-import { UserStatusProps } from "src/domain/user/user-status-vo"
 
 export type UpdateUserStatusParams = {
   id: string,
@@ -19,9 +18,9 @@ export class UpdateUserStatusUC {
 
   public async do(params: UpdateUserStatusParams): Promise<User> {
     const user = await this.userRepo.findById(params.id)
-    const { lastName, firstName, email } = user.allProps
+    const { id, lastName, firstName, email } = user.allProps
     const newUser = new User({
-      id: params.id,
+      id: id,
       lastName: new UserNameVO(lastName),
       firstName: new UserNameVO(firstName),
       email: new UserEmailVO(email),
