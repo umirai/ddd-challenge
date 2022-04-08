@@ -20,4 +20,8 @@ export class UserStatusVO {
   get statusId() {
     return UserStatusId[this._value]
   }
+
+  public isActive(): boolean {
+    return this._value === 'Active'
+  }
 }
