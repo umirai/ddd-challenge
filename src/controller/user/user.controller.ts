@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body } from '@nestjs/common'
+import { Controller, Get, Post, Put, Body } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import { UserRepo } from 'src/infra/user/user-repo'
 import { User } from 'src/domain/user/user'
 import { UserDTO } from 'src/domain/user/user-dto'
 import { FindAllUsersUC } from 'src/app/user/find-all-users-uc'
 import { CreateUserParams, CreateUserUC } from 'src/app/user/create-user-uc'
+import { UpdateUserStatusUC, UpdateUserStatusParams } from 'src/app/user/update-user-status-uc'
 
 @Controller({ path: '/users' })
 export class UserController {
@@ -22,6 +23,15 @@ export class UserController {
     const prisma = new PrismaClient()
     const userRepo = new UserRepo(prisma)
     const usecase = new CreateUserUC(userRepo)
+    const result = await usecase.do(params)
+    return result
+  }
+
+  @Put()
+  async update(@Body() params: UpdateUserStatusParams): Promise<User> {
+    const prisma = new PrismaClient()
+    const userRepo = new UserRepo(prisma)
+    const usecase = new UpdateUserStatusUC(userRepo)
     const result = await usecase.do(params)
     return result
   }
