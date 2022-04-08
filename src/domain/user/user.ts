@@ -17,6 +17,10 @@ export class User {
     this._props = { ...props }
   }
 
+  get status() {
+    return this._props.status.value
+  }
+
   get allProps() {
     const { id, lastName, firstName, email, status } = this._props
     return {
