@@ -29,8 +29,7 @@ model User {
   statusId  Int    @default(1) @map("status_id")
 
   status           UserStatus         @relation(fields: [statusId], references: [id])
-  UserBelongsPair  UserBelongsPair[]
-  UserBelongsTeam  UserBelongsTeam[]
+  UserAffiliation  UserAffiliation[]
   UserTaskProgress UserTaskProgress[]
   @@map("users")
 }
@@ -43,11 +42,32 @@ model UserStatus {
   @@map("user_status")
 }
 
+model UserAffiliation {
+  userId        String @unique @map("user_id")
+  affiliationId Int    @map("affiliation_id")
+
+  user        User        @relation(fields: [userId], references: [id])
+  affiliation Affiliation @relation(fields: [affiliationId], references: [id])
+  @@map("user_affiliation")
+}
+
+model Affiliation {
+  id     Int    @id @default(autoincrement())
+  teamId String @map("team_id")
+  pairId String @map("pair_id")
+
+  team            Team              @relation(fields: [teamId], references: [id])
+  pair            Pair              @relation(fields: [pairId], references: [id])
+  UserAffiliation UserAffiliation[]
+  @@unique(pairId)
+  @@map("affiliations")
+}
+
 model Team {
   id       String @id
   teamName Int    @map("team_name") @db.SmallInt
 
-  userBelongsPair UserBelongsTeam[]
+  Affiliation Affiliation[]
   @@map("teams")
 }
 
@@ -55,28 +75,8 @@ model Pair {
   id       String @id
   pairName String @map("pair_name") @db.VarChar(255)
 
-  userBelongsPair UserBelongsPair[]
+  Affiliation Affiliation[]
   @@map("pairs")
-}
-
-model UserBelongsPair {
-  userId String @map("user_id")
-  pairId String @map("pair_id")
-
-  user User @relation(fields: [userId], references: [id])
-  pair Pair @relation(fields: [pairId], references: [id])
-  @@unique(userId)
-  @@map("user_belongs_pair")
-}
-
-model UserBelongsTeam {
-  userId String @map("user_id")
-  teamId String @map("team_id")
-
-  user User @relation(fields: [userId], references: [id])
-  team Team @relation(fields: [teamId], references: [id])
-  @@unique(userId)
-  @@map("user_belongs_team")
 }
 
 model Task {
