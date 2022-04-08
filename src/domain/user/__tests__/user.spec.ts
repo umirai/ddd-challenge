@@ -36,6 +36,6 @@ describe('domain/user', () => {
     const UserStatus = new UserStatusVO(status)
     expect(UserStatus).toBeInstanceOf(UserStatusVO)
     expect(UserStatus.value).toMatch(status)
-    expect(UserStatus.statusId).toBe(1)
+    expect(UserStatus.statusId).toBe(UserStatus.statusId)
   })
 })
