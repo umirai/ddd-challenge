@@ -5,73 +5,112 @@ import { PairNameVO } from "src/domain/team/pair-name-vo"
 
 describe('teamエンティティ', () => {
   describe('team.ts', () => {
+
+    const pairA = new Pair({
+      id: 'pairA',
+      pairName: new PairNameVO('a'),
+      userIdList: ['user1', 'user2'],
+    })
+    const pairB = new Pair({
+      id: 'pairB',
+      pairName: new PairNameVO('b'),
+      userIdList: ['user3', 'user4', 'user5'],
+    })
+    const pairC = new Pair({
+      id: 'pairC',
+      pairName: new PairNameVO('c'),
+      userIdList: ['user6', 'user7'],
+    })
+    const fiveUsersTeamProps = {
+      id: 'teamId',
+      teamName: new TeamNameVO(1),
+      pairs: [pairA, pairB]
+    }
+    const team = new Team(fiveUsersTeamProps)
+
     describe('正常系', () => {
-      it('3名の参加者を持つチームエンティティを作成', () => {
-        const pair = new Pair({
-          id: 'pairId',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1', 'user2', 'user3'],
-        })
-        const props = {
-          id: 'teamId',
-          teamName: new TeamNameVO(1),
-          pairs: [pair]
-        }
-        const team = new Team(props)
+
+      it('5名の参加者を持つチームエンティティを作成', () => {
         expect(team).toBeInstanceOf(Team)
       })
 
-      it('userIdListゲッターで参加者IDを一覧化して取得', () => {
-        const pairA = new Pair({
-          id: 'pairId',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1', 'user2', 'user3'],
-        })
-        const pairB = new Pair({
-          id: 'pairId',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user3', 'user4', 'user5'],
-        })
-        const props = {
-          id: 'teamId',
-          teamName: new TeamNameVO(1),
-          pairs: [pairA, pairB]
-        }
-        const team = new Team(props)
+      it('get pairs()', () => {
+        expect(team.pairs).toMatchObject([pairA, pairB])
+      })
+
+      it('get userIdList()', () => {
         const mergedUserIdList = pairA.userIdList.concat(pairB.userIdList)
         expect(team.userIdList).toMatchObject(mergedUserIdList)
       })
 
-      it('allPropsゲッターで全プロパティ値を取得', () => {
-        const pair = new Pair({
-          id: 'pairId',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1', 'user2', 'user3'],
-        })
-        const props = {
-          id: 'teamId',
-          teamName: new TeamNameVO(1),
-          pairs: [pair]
-        }
-        const team = new Team(props)
+      it('get allProps', () => {
+        const props = fiveUsersTeamProps
         expect(team.allProps).toMatchObject({
           id: props.id,
           teamName: props.teamName.value,
           pairs: props.pairs
         })
       })
+
+      it('getMinimumPair()', () => {
+        const minPair = team.getMinimumPair()
+        expect(minPair.id).toBe(pairA.id)
+      })
+
+      it('generateNonDuplicatePairName()', () => {
+        expect(team.generateNonDuplicatePairName()).toBe('c')
+      })
+
+      it('getPairByUserId()', () => {
+        expect(team.getPairByUserId('user1').id).toBe(pairA.id)
+      })
+
+      it('addPair()', () => {
+        const testTeam = new Team({
+          id: 'teamA',
+          teamName: new TeamNameVO(1),
+          pairs: [pairA, pairB]
+        })
+        expect(testTeam.pairs.length).toBe(2)
+        testTeam.addPair(pairC)
+        expect(testTeam.pairs.length).toBe(3)
+      })
+
+      it('removeUser()', () => {
+        const testPairA = new Pair({
+          id: 'pairA',
+          pairName: new PairNameVO('a'),
+          userIdList: ['user1', 'user2', 'user3']
+        })
+        const testPairB = new Pair({
+          id: 'pairA',
+          pairName: new PairNameVO('a'),
+          userIdList: ['user4', 'user5']
+        })
+        const testTeam = new Team({
+          id: 'teamA',
+          teamName: new TeamNameVO(1),
+          pairs: [testPairA, testPairB]
+        })
+        expect(testTeam.userIdList.length).toBe(5)
+        const firstRemove = testTeam.removeUser('user1')
+        expect(testTeam.userIdList.length).toBe(4)
+        expect(firstRemove).toEqual([])
+        const secondRemove = testTeam.removeUser('user2')
+        expect(testTeam.userIdList.length).toBe(3)
+        expect(secondRemove).toEqual(['pair'])
+        const thirdRemove = testTeam.removeUser('user3')
+        expect(testTeam.userIdList.length).toBe(2)
+        expect(thirdRemove).toEqual(['team', 'pair'])
+      })
     })
+
     describe('異常系', () => {
       it('2名の参加者を持つチームエンティティを作成するとエラー', () => {
-        const pair = new Pair({
-          id: 'pairId',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1', 'user2'],
-        })
         const props = {
           id: 'teamId',
           teamName: new TeamNameVO(1),
-          pairs: [pair]
+          pairs: [pairA]
         }
         expect(() => new Team(props)).toThrowError()
       })
