@@ -21,7 +21,7 @@ export class Team {
   }
 
   get teamName() {
-    return this._props.teamName
+    return this._props.teamName.value
   }
 
   get pairs() {
