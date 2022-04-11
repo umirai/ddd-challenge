@@ -16,6 +16,14 @@ export class Team {
     this._props = props
   }
 
+  get id() {
+    return this._props.id
+  }
+
+  get teamName() {
+    return this._props.teamName
+  }
+
   get pairs() {
     return this._props.pairs
   }
