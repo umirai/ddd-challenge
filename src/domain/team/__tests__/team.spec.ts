@@ -34,6 +34,14 @@ describe('teamエンティティ', () => {
         expect(team).toBeInstanceOf(Team)
       })
 
+      it('get id()', () => {
+        expect(team.id).toBe('teamId')
+      })
+
+      it('get teamName()', () => {
+        expect(team.teamName).toBe(1)
+      })
+
       it('get pairs()', () => {
         expect(team.pairs).toMatchObject([pairA, pairB])
       })
