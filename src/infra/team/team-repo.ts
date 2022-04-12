@@ -43,18 +43,19 @@ export class TeamRepo implements ITeamRepo {
   public async findMinimunTeam(): Promise<Team> {
     const minTeamIdResult = await this.prisma.$queryRaw`
       SELECT
-        A.team_id
+        COUNT(TMP.user_id) as user_count,
+        TMP.team_id
       FROM
         (SELECT
-          COUNT(user_id) as user_count,
-          affiliation_id
+          UA.user_id,
+          A.team_id
         FROM
-          user_affiliation
-        GROUP BY affiliation_id
-        ORDER BY user_count ASC
-        LIMIT 1) as TMP
+          user_affiliation as UA
           LEFT JOIN affiliations as A
-          ON TMP.affiliation_id = A.id
+            ON UA.affiliation_id = A.id) as TMP
+      GROUP BY TMP.team_id
+      ORDER BY user_count ASC
+      LIMIT 1
     `
     const minTeamId: string = minTeamIdResult[0]['team_id']
     return await this.findById(minTeamId)
