@@ -84,7 +84,7 @@ export class Team {
 
   public removeUser(userId: string) {
     const pair = this.getPairByUserId(userId)
-    const index = this.userIdList.indexOf(userId)
+    const index = pair.userIdList.indexOf(userId)
     pair.userIdList.splice(index, 1)
 
     // テスト用
