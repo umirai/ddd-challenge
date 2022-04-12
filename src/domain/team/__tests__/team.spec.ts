@@ -73,6 +73,10 @@ describe('teamエンティティ', () => {
         expect(team.getPairByUserId('user1').id).toBe(pairA.id)
       })
 
+      it('noPairsAvailableToJoin()', () => {
+        expect(team.noPairsAvailableToJoin()).toBeFalsy()
+      })
+
       it('addPair()', () => {
         const testTeam = new Team({
           id: 'teamA',
@@ -82,6 +86,17 @@ describe('teamエンティティ', () => {
         expect(testTeam.pairs.length).toBe(2)
         testTeam.addPair(pairC)
         expect(testTeam.pairs.length).toBe(3)
+      })
+
+      it('removePair()', () => {
+        const testTeam = new Team({
+          id: 'teamA',
+          teamName: new TeamNameVO(1),
+          pairs: [pairA, pairB]
+        })
+        expect(testTeam.pairs.length).toBe(2)
+        testTeam.removePair(pairA)
+        expect(testTeam.pairs.length).toBe(1)
       })
 
       it('removeUser()', () => {
@@ -103,13 +118,18 @@ describe('teamエンティティ', () => {
         expect(testTeam.userIdList.length).toBe(5)
         const firstRemove = testTeam.removeUser('user1')
         expect(testTeam.userIdList.length).toBe(4)
-        expect(firstRemove).toEqual([])
+        expect(firstRemove.team).toBeFalsy()
+        expect(firstRemove.pair).toBeFalsy()
+
         const secondRemove = testTeam.removeUser('user2')
         expect(testTeam.userIdList.length).toBe(3)
-        expect(secondRemove).toEqual(['pair'])
+        expect(secondRemove.team).toBeFalsy()
+        expect(secondRemove.pair).toBeTruthy()
+
         const thirdRemove = testTeam.removeUser('user3')
         expect(testTeam.userIdList.length).toBe(2)
-        expect(thirdRemove).toEqual(['team', 'pair'])
+        expect(thirdRemove.team).toBeTruthy()
+        expect(thirdRemove.pair).toBeTruthy()
       })
     })
 
