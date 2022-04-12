@@ -78,8 +78,17 @@ export class Team {
     return this.pairs.filter((pair) => pair.userIdList.includes(userId))[0]
   }
 
+  public noPairsAvailableToJoin(): boolean {
+    return this.pairs.length === 1
+  }
+
   public addPair(pair: Pair): void {
     this.pairs.push(pair)
+  }
+
+  public removePair(pair: Pair): void {
+    const index = this.pairs.indexOf(pair)
+    this.pairs.splice(index, 1)
   }
 
   public removeUser(userId: string): {
