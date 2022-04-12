@@ -82,21 +82,17 @@ export class Team {
     this.pairs.push(pair)
   }
 
-  public removeUser(userId: string) {
+  public removeUser(userId: string): {
+    team: boolean,
+    pair: boolean,
+  } {
     const pair = this.getPairByUserId(userId)
     const index = pair.userIdList.indexOf(userId)
     pair.userIdList.splice(index, 1)
 
-    // テスト用
-    const alert = []
-    if (this.userIdList.length < this.MIN_MEMBERS_COUNT) {
-      alert.push('team')
-      // console.log('チーム人数が2名以下になっている旨を管理者通知')
-    }
-    if (pair.userIdList.length < pair.minMembersCount) {
-      alert.push('pair')
-      // console.log('ペア人数が1名以下になっている旨を管理者通知')
-    }
+    const alert = { team: false, pair: false }
+    if (this.userIdList.length < this.MIN_MEMBERS_COUNT) alert.team = true
+    if (pair.userIdList.length < pair.minMembersCount) alert.pair = true
     return alert
   }
 }
