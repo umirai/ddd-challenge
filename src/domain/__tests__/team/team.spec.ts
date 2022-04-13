@@ -51,6 +51,10 @@ describe('teamエンティティ', () => {
         expect(team.userIdList).toMatchObject(mergedUserIdList)
       })
 
+      it('get pairIdList()', () => {
+        expect(team.pairIdList).toMatchObject(['pairA', 'pairB'])
+      })
+
       it('get minMembersCount()', () => {
         expect(team.minMembersCount).toBe(3)
       })
