@@ -46,27 +46,8 @@ export class Pair {
     return !(length === this.MIN_MEMBERS_COUNT || length === this.MAX_MEMBERS_COUNT)
   }
 
-  private cannotAcceptNewUser(): boolean {
-    return this.userIdList.length === this.MAX_MEMBERS_COUNT
-  }
-
-  private cannotRemoveUser(): boolean {
+  public canAcceptNewUser(): boolean {
     return this.userIdList.length === this.MIN_MEMBERS_COUNT
-  }
-
-  public hasMaxUsers(): boolean {
-    return this.cannotAcceptNewUser()
-  }
-
-  public addUser(addUserId: string): void {
-    if (this.cannotAcceptNewUser()) throw new Error('参加者数が上限に達しているペアです。')
-    this.userIdList.push(addUserId)
-  }
-
-  public removeUser(removeUserId: string): void {
-    if (this.cannotRemoveUser()) throw new Error('参加者数が下限に達しているペアです。')
-    const index = this.userIdList.indexOf(removeUserId)
-    this.userIdList.splice(index, 1)
   }
 
   public getRandomUserId(): string {
