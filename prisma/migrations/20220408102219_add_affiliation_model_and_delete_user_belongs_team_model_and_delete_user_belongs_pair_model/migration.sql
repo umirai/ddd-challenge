@@ -51,7 +51,7 @@ ALTER TABLE "user_affiliation" ADD CONSTRAINT "user_affiliation_user_id_fkey" FO
 ALTER TABLE "user_affiliation" ADD CONSTRAINT "user_affiliation_affiliation_id_fkey" FOREIGN KEY ("affiliation_id") REFERENCES "affiliations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "affiliations" ADD CONSTRAINT "affiliations_team_id_fkey" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "affiliations" ADD CONSTRAINT "affiliations_team_id_fkey" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "affiliations" ADD CONSTRAINT "affiliations_pair_id_fkey" FOREIGN KEY ("pair_id") REFERENCES "pairs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "affiliations" ADD CONSTRAINT "affiliations_pair_id_fkey" FOREIGN KEY ("pair_id") REFERENCES "pairs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
