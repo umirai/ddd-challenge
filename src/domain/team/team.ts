@@ -32,6 +32,10 @@ export class Team {
     return this.getUserIdList(this._props.pairs)
   }
 
+  get minMembersCount() {
+    return this.MIN_MEMBERS_COUNT
+  }
+
   get allProps() {
     const { id, teamName, pairs } = this._props
     return {
