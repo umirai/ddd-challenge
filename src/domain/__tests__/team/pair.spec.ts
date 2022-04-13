@@ -54,31 +54,9 @@ describe('pairエンティティ', () => {
         })
       })
 
-      it('hasMaxUsers()', () => {
-        expect(twoPair.hasMaxUsers()).toBeFalsy()
-        expect(threePair.hasMaxUsers()).toBeTruthy()
-      })
-
-      it('addUser()', () => {
-        const addUserPair = new Pair({
-          id: 'pairA',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1','user2']
-        })
-        addUserPair.addUser('user3')
-        expect(addUserPair.userIdList).toMatchObject(['user1', 'user2', 'user3'])
-        expect(() => threePair.addUser('user3')).toThrowError()
-      })
-
-      it('removeUser()', () => {
-        const removeUserPair = new Pair({
-          id: 'pairA',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1','user2', 'user3']
-        })
-        removeUserPair.removeUser('user3')
-        expect(removeUserPair.userIdList).toMatchObject(['user1', 'user2'])
-        expect(() => twoPair.removeUser('user2')).toThrowError()
+      it('canAcceptNewUser()', () => {
+        expect(twoPair.canAcceptNewUser()).toBeTruthy()
+        expect(threePair.canAcceptNewUser()).toBeFalsy()
       })
 
       it('getRandomUserId()', () => {
