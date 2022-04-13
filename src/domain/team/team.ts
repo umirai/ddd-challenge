@@ -28,6 +28,10 @@ export class Team {
     return this._props.pairs
   }
 
+  get pairIdList() {
+    return this._props.pairs.map((pair) => pair.id)
+  }
+
   get userIdList() {
     return this.getUserIdList(this._props.pairs)
   }
