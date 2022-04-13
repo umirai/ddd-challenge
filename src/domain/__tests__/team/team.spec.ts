@@ -51,6 +51,10 @@ describe('teamエンティティ', () => {
         expect(team.userIdList).toMatchObject(mergedUserIdList)
       })
 
+      it('get minMembersCount()', () => {
+        expect(team.minMembersCount).toBe(3)
+      })
+
       it('get allProps', () => {
         const props = fiveUsersTeamProps
         expect(team.allProps).toMatchObject({
@@ -75,61 +79,6 @@ describe('teamエンティティ', () => {
 
       it('noPairsAvailableToJoin()', () => {
         expect(team.noPairsAvailableToJoin()).toBeFalsy()
-      })
-
-      it('addPair()', () => {
-        const testTeam = new Team({
-          id: 'teamA',
-          teamName: new TeamNameVO(1),
-          pairs: [pairA, pairB]
-        })
-        expect(testTeam.pairs.length).toBe(2)
-        testTeam.addPair(pairC)
-        expect(testTeam.pairs.length).toBe(3)
-      })
-
-      it('removePair()', () => {
-        const testTeam = new Team({
-          id: 'teamA',
-          teamName: new TeamNameVO(1),
-          pairs: [pairA, pairB]
-        })
-        expect(testTeam.pairs.length).toBe(2)
-        testTeam.removePair(pairA)
-        expect(testTeam.pairs.length).toBe(1)
-      })
-
-      it('removeUser()', () => {
-        const testPairA = new Pair({
-          id: 'pairA',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user1', 'user2', 'user3']
-        })
-        const testPairB = new Pair({
-          id: 'pairA',
-          pairName: new PairNameVO('a'),
-          userIdList: ['user4', 'user5']
-        })
-        const testTeam = new Team({
-          id: 'teamA',
-          teamName: new TeamNameVO(1),
-          pairs: [testPairA, testPairB]
-        })
-        expect(testTeam.userIdList.length).toBe(5)
-        const firstRemove = testTeam.removeUser('user1')
-        expect(testTeam.userIdList.length).toBe(4)
-        expect(firstRemove.team).toBeFalsy()
-        expect(firstRemove.pair).toBeFalsy()
-
-        const secondRemove = testTeam.removeUser('user2')
-        expect(testTeam.userIdList.length).toBe(3)
-        expect(secondRemove.team).toBeFalsy()
-        expect(secondRemove.pair).toBeTruthy()
-
-        const thirdRemove = testTeam.removeUser('user3')
-        expect(testTeam.userIdList.length).toBe(2)
-        expect(thirdRemove.team).toBeTruthy()
-        expect(thirdRemove.pair).toBeTruthy()
       })
     })
 
