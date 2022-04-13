@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Body } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import { UserRepo } from 'src/infra/user/user-repo'
+import { TeamRepo } from 'src/infra/team/team-repo'
 import { User } from 'src/domain/user/user'
 import { UserDTO } from 'src/domain/user/user-dto'
 import { FindAllUsersUC } from 'src/app/user/find-all-users-uc'
@@ -31,7 +32,8 @@ export class UserController {
   async update(@Body() params: UpdateUserStatusParams): Promise<User> {
     const prisma = new PrismaClient()
     const userRepo = new UserRepo(prisma)
-    const usecase = new UpdateUserStatusUC(userRepo)
+    const teamRepo = new TeamRepo(prisma)
+    const usecase = new UpdateUserStatusUC(userRepo, teamRepo)
     const result = await usecase.do(params)
     return result
   }
