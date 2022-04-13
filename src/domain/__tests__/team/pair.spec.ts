@@ -1,4 +1,4 @@
-import { Pair } from "../pair"
+import { Pair } from "src/domain/team/pair"
 import { PairNameVO } from "src/domain/team/pair-name-vo"
 
 describe('pairエンティティ', () => {

@@ -1,7 +1,7 @@
-import { User, UserProps } from '../user'
-import { UserEmailVO } from '../user-email-vo'
-import { UserNameVO } from '../user-name-vo'
-import { UserStatusVO } from '../user-status-vo'
+import { User, UserProps } from 'src/domain/user/user'
+import { UserEmailVO } from 'src/domain/user/user-email-vo'
+import { UserNameVO } from 'src/domain/user/user-name-vo'
+import { UserStatusVO } from 'src/domain/user/user-status-vo'
 
 describe('domain/user', () => {
   it('userエンティティを生成', () => {
