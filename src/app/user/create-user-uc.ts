@@ -4,7 +4,7 @@ import { createRandomIdString } from "src/util/randomIdString"
 import { UserNameVO } from "src/domain/user/user-name-vo"
 import { UserEmailVO } from "src/domain/user/user-email-vo"
 import { UserStatusVO } from "src/domain/user/user-status-vo"
-import { UserService } from "src/domain/services/user/user-service"
+import { UserService } from "src/domain/services/user-service"
 
 export type CreateUserParams = {
   lastName: string,
