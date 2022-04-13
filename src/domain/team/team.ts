@@ -81,27 +81,4 @@ export class Team {
   public noPairsAvailableToJoin(): boolean {
     return this.pairs.length === 1
   }
-
-  public addPair(pair: Pair): void {
-    this.pairs.push(pair)
-  }
-
-  public removePair(pair: Pair): void {
-    const index = this.pairs.indexOf(pair)
-    this.pairs.splice(index, 1)
-  }
-
-  public removeUser(userId: string): {
-    team: boolean,
-    pair: boolean,
-  } {
-    const pair = this.getPairByUserId(userId)
-    const index = pair.userIdList.indexOf(userId)
-    pair.userIdList.splice(index, 1)
-
-    const alert = { team: false, pair: false }
-    if (this.userIdList.length < this.MIN_MEMBERS_COUNT) alert.team = true
-    if (pair.userIdList.length < pair.minMembersCount) alert.pair = true
-    return alert
-  }
 }
