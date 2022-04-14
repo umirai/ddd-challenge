@@ -1,9 +1,23 @@
 export const createUserTaskProgress = async (prisma) => {
-  const userTaskProgress = [
-    { userId: '1', taskId: '1', taskStatusId: 3 },
-    { userId: '1', taskId: '2', taskStatusId: 3 },
-    { userId: '1', taskId: '3', taskStatusId: 3 },
-  ]
+  type userTaskProgressType = {
+    userId: string,
+    taskId: string,
+    taskStatusId: number
+  }
+
+  const userTaskProgress: userTaskProgressType[] = []
+
+  const userIdList = [...Array(13).keys()].map(key => ++key)
+  const taskIdList = [...Array(15).keys()].map(key => ++key)
+  userIdList.map((userIdNumber) => {
+    taskIdList.map((taskIdNumber) => {
+      userTaskProgress.push({
+        userId: String(userIdNumber),
+        taskId: String(taskIdNumber),
+        taskStatusId: 1
+      })
+    })
+  })
 
   await prisma.userTaskProgress.createMany({ data: userTaskProgress })
 }
