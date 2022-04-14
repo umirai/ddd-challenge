@@ -4,7 +4,6 @@ import { Pair } from "src/domain/team/pair"
 import { PairNameVO } from "src/domain/team/pair-name-vo"
 import { Team } from "src/domain/team/team"
 import { ITeamRepo } from "src/domain/team/team-repo-interface"
-import { join } from "@prisma/client/runtime"
 
 type Affiliation = {
   id: number,
@@ -17,6 +16,39 @@ export class TeamRepo implements ITeamRepo {
 
   public constructor(prisma: PrismaClient) {
     this.prisma = prisma
+  }
+
+  public async findAll(): Promise<Team[]> {
+    const teams = await this.prisma.team.findMany({
+      select: {
+        id: true,
+        teamName: true,
+        Affiliation: {
+          include: {
+            pair: true,
+            UserAffiliation: {
+              select: {
+                userId: true
+              }
+            }
+          }
+        }
+      }
+    })
+
+    return teams.map((team) => {
+      return new Team({
+        id: team.id,
+        teamName: new TeamNameVO(team.teamName),
+        pairs: team.Affiliation.map((aff) => {
+          return new Pair(({
+            id: aff.pair.id,
+            pairName: new PairNameVO(aff.pair.pairName),
+            userIdList: aff.UserAffiliation.map((userAff) => userAff.userId)
+          }))
+        })
+      })
+    })
   }
 
   public async findById(teamId: string): Promise<Team> {
