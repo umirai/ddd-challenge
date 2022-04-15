@@ -29,33 +29,46 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
+```
+
+## Migration
+
+```bash
+# db-test: migrate & seeding
+$ yarn migrate:test
+
+# db: reset
+$ yarn migrate:reset
+
+# db: reset & seeding
+$ yarn migrate:init
+
+# db: migrate & seeding
+$ yarn migrate:dev
 ```
 
 ## Test
 
 ```bash
+# unit tests & db-reset
+$ yarn test:reset
+
 # unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ yarn test
 ```
 
 ## Support
