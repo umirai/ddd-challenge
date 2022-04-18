@@ -5,12 +5,6 @@ import { PairNameVO } from "src/domain/team/pair-name-vo"
 import { Team } from "src/domain/team/team"
 import { ITeamRepo } from "src/domain/team/team-repo-interface"
 
-type Affiliation = {
-  id: number,
-  teamId: string,
-  pairId: string,
-}
-
 export class TeamRepo implements ITeamRepo {
   private readonly prisma: PrismaClient
 
@@ -117,110 +111,40 @@ export class TeamRepo implements ITeamRepo {
   public async updateAffiliation(team: Team): Promise<Team> {
 
     const _team = await this.findById(team.id)
-    const _length = _team.userIdList.length
-    const length = team.userIdList.length
-
-    const patternAddUser = _length < length
-    const patternRemoveUser = length < _length
-
-    // 1. 復学パターン（参加者が増える）
-    if (patternAddUser) {
-      const newUserId = team.userIdList.find((userId) => !_team.userIdList.includes(userId))
-      const joinedPair = team.getPairByUserId(newUserId)
-
-      if (_team.pairs.length === team.pairs.length) {
-        const affiliation = await this.findAffiliatoinByPairId(joinedPair.id)
-        await this.upsertUserAffiliation(newUserId, affiliation.id)
-      } else {
-        await this.prisma.pair.create({
-          data: {
-            id: joinedPair.id,
-            pairName: team.generateNonDuplicatePairName(),
-            Affiliation: {
-              create: { teamId: team.id },
-            },
-          },
-        })
-        const transferUserId = joinedPair.userIdList.find((userId) => userId !== newUserId)
-        const newAffiliation = await this.findAffiliatoinByPairId(joinedPair.id)
-        await this.upsertUserAffiliation(transferUserId, newAffiliation.id)
-        await this.upsertUserAffiliation(newUserId, newAffiliation.id)
+    const _pairIdList = _team.pairs.map((pair) => pair.id)
+    const deletePairs = this.prisma.pair.deleteMany({
+      where: {
+        id: { in: _pairIdList }
       }
-    }
+    })
 
-    // 2. 休退学パターン（参加者が抜ける）
-    if (patternRemoveUser) {
-
-      // 離脱者
-      const removedUserId = _team.userIdList.find((userId) => !team.userIdList.includes(userId))
-
-      // 離脱者がもといたペア
-      const pastPair = _team.getPairByUserId(removedUserId)
-
-      // 離脱者の所属情報削除
-      await this.prisma.userAffiliation.delete({
-        where: { userId: removedUserId },
-      })
-
-      // [副作用]対象者が2名ペアから離脱して孤立者が出ているとき
-      if (pastPair.userIdList.length === pastPair.minMembersCount) {
-
-        const transferUserId = pastPair.userIdList.find((userId) => userId !== removedUserId)
-        const newPairId = team.pairIdList.find((pairId) => !_team.pairIdList.includes(pairId))
-        const patternRemovePair = team.pairs.length < _team.pairs.length
-        const patternSplitePair = (team.pairs.length === _team.pairs.length) && !!newPairId
-
-        // a. 2名ペアに合流 -> 孤立者の所属情報更新
-        if (patternRemovePair) {
-          const joinedPair = team.getPairByUserId(transferUserId)
-          const affiliation = await this.findAffiliatoinByPairId(joinedPair.id)
-          await this.upsertUserAffiliation(transferUserId, affiliation.id)
-        }
-
-        // b. 3名ペアに合流 -> 新ペア追加、孤立者と合流者の所属情報を更新
-        if (patternSplitePair) {
-          const newPair = team.pairs.find((pair) => pair.id === newPairId)
-          const margedUserId = newPair.userIdList.find((userId) => userId !== transferUserId)
-          await this.prisma.pair.create({
-            data: {
-              id: newPair.id,
-              pairName: newPair.pairName,
-              Affiliation: {
-                create: {
-                  teamId: team.id
+    const createPairs = team.pairs.map((pair) => {
+      return this.prisma.pair.create({
+        data: {
+          id: pair.id,
+          pairName: pair.pairName,
+          Affiliation: {
+            create: {
+              teamId: team.id,
+              UserAffiliation: {
+                createMany: {
+                  data: pair.userIdList.map((userId) =>
+                    new Object({ userId: userId }) as Prisma.UserAffiliationCreateManyInput
+                  )
                 }
               }
-            }
-          })
-          const affiliation = await this.findAffiliatoinByPairId(newPair.id)
-          await this.upsertUserAffiliation(transferUserId, affiliation.id)
-          await this.upsertUserAffiliation(margedUserId, affiliation.id)
+            },
+          },
         }
+      })
+    })
 
-        // 元ペア削除
-        await this.prisma.pair.delete({
-          where: { id: pastPair.id },
-        })
-      }
-    }
+    const queryArr = []
+    queryArr.push(deletePairs)
+    createPairs.forEach((createPair) => queryArr.push(createPair))
+
+    await this.prisma.$transaction(queryArr)
 
     return team
-  }
-
-  private async findAffiliatoinByPairId(pairId: string): Promise<Affiliation> {
-    return await this.prisma.affiliation.findUnique({
-      where: { pairId: pairId }
-    })
-  }
-
-  private async upsertUserAffiliation(userId: string, affiliationId: number): Promise<void> {
-    await this.prisma.userAffiliation.upsert({
-      where: { userId: userId },
-      update: { affiliationId: affiliationId },
-      create: {
-        userId: userId,
-        affiliationId: affiliationId
-      },
-    })
   }
 }
