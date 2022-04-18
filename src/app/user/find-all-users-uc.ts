@@ -1,5 +1,5 @@
 import { IUserRepo } from "src/domain/user/user-repo-interface"
-import { UserDTO } from "src/domain/user/user-dto"
+import { UserDTO } from "src/app/user/user-dto"
 
 export class FindAllUsersUC {
   private readonly userRepo: IUserRepo

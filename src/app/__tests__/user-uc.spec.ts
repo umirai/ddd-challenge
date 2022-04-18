@@ -6,7 +6,7 @@ import { CreateUserUC } from "../user/create-user-uc"
 import { UpdateUserStatusUC } from "../user/update-user-status-uc"
 import { User } from "src/domain/user/user"
 import { UserStatusProps } from "src/domain/user/user-status-vo"
-import { UserDTO } from "src/domain/user/user-dto"
+import { UserDTO } from "src/app/user/user-dto"
 
 describe('app/user', () => {
   it('参加者一覧を取得する', async () => {
