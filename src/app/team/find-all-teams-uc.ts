@@ -1,6 +1,5 @@
-import { Pair } from "src/domain/team/pair"
-import { PairDTO } from "src/domain/team/pair-dto"
-import { TeamDTO } from "src/domain/team/team-dto"
+import { PairDTO } from "src/app/team/pair-dto"
+import { TeamDTO } from "src/app/team/team-dto"
 import { ITeamRepo } from "src/domain/team/team-repo-interface"
 
 export class FindAllTeamsUC {

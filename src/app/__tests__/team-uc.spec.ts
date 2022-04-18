@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { TeamRepo } from 'src/infra/team/team-repo'
 import { FindAllTeamsUC } from 'src/app/team/find-all-teams-uc'
-import { TeamDTO } from 'src/domain/team/team-dto'
+import { TeamDTO } from 'src/app/team/team-dto'
 
 describe('team-uc.ts', () => {
   it('チーム一覧を取得', async () => {

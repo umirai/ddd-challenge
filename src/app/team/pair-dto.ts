@@ -1,5 +1,3 @@
-import { userInfo } from "os"
-
 export class PairDTO {
   public id: string
   public pairName: string

@@ -1,4 +1,4 @@
-import { PairDTO } from "src/domain/team/pair-dto"
+import { PairDTO } from "src/app/team/pair-dto"
 
 export class TeamDTO {
   public id: string
