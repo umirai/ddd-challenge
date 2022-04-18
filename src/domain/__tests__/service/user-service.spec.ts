@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { UserRepo } from "src/infra/user/user-repo"
-import { UserService } from "src/domain/services/user-service"
+import { UserService } from "src/domain/service/user-service"
 import { UserEmailVO } from "src/domain/user/user-email-vo"
 
 describe('user-service.ts', () => {
