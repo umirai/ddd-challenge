@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { Prisma, PrismaClient } from "@prisma/client"
 import { TeamNameVO } from "src/domain/team/team-name-vo"
 import { Pair } from "src/domain/team/pair"
 import { PairNameVO } from "src/domain/team/pair-name-vo"
