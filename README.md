@@ -22,9 +22,19 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Domain Model Diagram
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+![domain-model-diagram](https://user-images.githubusercontent.com/58926229/163914302-61509406-7333-4c00-9705-c42107317c35.png)
+
+## Entity Relationship Diagram
+
+![entity-relationship-diagram](https://user-images.githubusercontent.com/58926229/163914257-36769a5b-e414-4eb6-b6ed-99a4d57963b7.png)
+
+## Startup
+
+```bash
+$ docker compose up -d
+```
 
 ## Installation
 
@@ -48,6 +58,9 @@ $ yarn start:prod
 ## Migration
 
 ```bash
+# prisma setup
+$ yarn prisma:generate
+
 # db-test: migrate & seeding
 $ yarn migrate:test
 
@@ -70,17 +83,3 @@ $ yarn test:reset
 # unit tests
 $ yarn test
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
