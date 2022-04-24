@@ -29,7 +29,7 @@ export class UserController {
   }
 
   @Put()
-  async update(@Body() params: UpdateUserStatusParams): Promise<User> {
+  async update(@Body() params: UpdateUserStatusParams): Promise<UserDTO> {
     const prisma = new PrismaClient()
     const userRepo = new UserRepo(prisma)
     const teamRepo = new TeamRepo(prisma)
