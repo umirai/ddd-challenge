@@ -31,4 +31,8 @@ export class User {
       status: status.value,
     }
   }
+
+  public updateStatus(newStatus: UserStatusVO) {
+    this._props.status = newStatus
+  }
 }

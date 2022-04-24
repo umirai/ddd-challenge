@@ -4,17 +4,24 @@ import { UserNameVO } from 'src/domain/user/user-name-vo'
 import { UserStatusVO } from 'src/domain/user/user-status-vo'
 
 describe('domain/user', () => {
-  it('userエンティティを生成', () => {
-    const userProps: UserProps = {
-      id: 'testId',
-      lastName: new UserNameVO('suzuki'),
-      firstName: new UserNameVO('taro'),
-      email: new UserEmailVO('s.taro@gmail.com'),
-      status: new UserStatusVO('Active'),
-    }
+  const userProps: UserProps = {
+    id: 'testId',
+    lastName: new UserNameVO('suzuki'),
+    firstName: new UserNameVO('taro'),
+    email: new UserEmailVO('s.taro@gmail.com'),
+    status: new UserStatusVO('Active'),
+  }
 
+  it('userエンティティを生成', () => {
     const userEntity = new User(userProps)
     expect(userEntity).toBeInstanceOf(User)
+  })
+
+  it('updateStatus()', () => {
+    const userEntity = new User(userProps)
+    const newStatus = new UserStatusVO('Inactive')
+    userEntity.updateStatus(newStatus)
+    expect(userEntity.status).toBe(newStatus.value)
   })
 
   it('user-name-voを生成', () => {
