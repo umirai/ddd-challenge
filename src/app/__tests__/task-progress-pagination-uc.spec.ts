@@ -7,7 +7,7 @@ describe('app/task-progress-pagination', () => {
   it('特定課題、特定ステータスの一覧をページングで取得する', async () => {
     const params = {
       taskIdList: ['1', '2'],
-      taskStatusId: 2,
+      taskStatusId: 1,
       pageNumber: 1,
     }
     const prisma = new PrismaClient({ log: ["query"] })
