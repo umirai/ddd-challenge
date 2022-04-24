@@ -54,11 +54,7 @@ export class Team {
   }
 
   private getUserIdList(pairs: Pair[]): string[] {
-    let teamUserIdList: string[] = []
-    pairs.map((pair) => {
-      pair.userIdList.map((userId) => teamUserIdList.push(userId))
-    })
-    return teamUserIdList
+    return [].concat(...pairs.map((pair) => pair.userIdList))
   }
 
   public getMinimumPair(): Pair {
