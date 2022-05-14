@@ -1,12 +1,8 @@
-import { User } from "src/domain/user/user"
-import { UserNameVO } from "src/domain/user/user-name-vo"
-import { UserEmailVO } from "src/domain/user/user-email-vo"
 import { UserStatusVO, UserStatusProps } from "src/domain/user/user-status-vo"
 import { TeamRebuilder } from "src/domain/service/team-rebuilder"
 import { IUserRepo } from "src/domain/user/user-repo-interface"
 import { ITeamRepo } from "src/domain/team/team-repo-interface"
 import { UserDTO } from "src/app/user/user-dto"
-import { last } from "rxjs"
 
 export type UpdateUserStatusParams = {
   userId: string,
