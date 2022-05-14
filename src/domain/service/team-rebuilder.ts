@@ -7,9 +7,6 @@ import { createRandomIdString } from "src/util/randomIdString"
 
 
 export class TeamRebuilder {
-  // private readonly userId: string
-  // private readonly teamRepo: ITeamRepo
-
   constructor(
     private userId: string,
     private teamRepo: ITeamRepo
