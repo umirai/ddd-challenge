@@ -3,11 +3,7 @@ import { ITaskProgressPaginationQS, TaskProgressPaginationDTO } from "src/app/qu
 import { FindTaskProgressPaginationParams } from "src/app/task-progress-pagenation/find-task-progress-pagination-uc";
 
 export class TaskProgressPaginationQS implements ITaskProgressPaginationQS {
-  private prisma: PrismaClient
-
-  public constructor(prisma: PrismaClient) {
-    this.prisma = prisma
-  }
+  constructor(private prisma: PrismaClient) {}
 
   public async search(params: FindTaskProgressPaginationParams): Promise<TaskProgressPaginationDTO[]> {
     const { taskIdList, taskStatusId, pageNumber } = params

@@ -6,11 +6,7 @@ import { Team } from "src/domain/team/team"
 import { ITeamRepo } from "src/domain/team/team-repo-interface"
 
 export class TeamRepo implements ITeamRepo {
-  private readonly prisma: PrismaClient
-
-  public constructor(prisma: PrismaClient) {
-    this.prisma = prisma
-  }
+  constructor(private prisma: PrismaClient) {}
 
   public async findAll(): Promise<Team[]> {
     const teams = await this.prisma.team.findMany({

@@ -4,11 +4,7 @@ import { TaskProgressVO } from "src/domain/task-progress/task-progress-vo"
 import { TaskStatusVO, TaskStatusProps } from "src/domain/task-progress/task-status-vo"
 
 export class TaskProgressRepo implements ITaskProgressRepo {
-  private prisma: PrismaClient
-
-  public constructor(prisma: PrismaClient) {
-    this.prisma = prisma
-  }
+  constructor(private prisma: PrismaClient) {}
 
   public async update(taskProgressVO: TaskProgressVO): Promise<TaskProgressVO> {
     const { userId, taskId } = taskProgressVO.allProps
