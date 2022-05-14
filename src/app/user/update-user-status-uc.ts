@@ -14,16 +14,10 @@ export type UpdateUserStatusParams = {
 }
 
 export class UpdateUserStatusUC {
-  private readonly userRepo: IUserRepo
-  private readonly teamRepo: ITeamRepo
-
-  public constructor(
-    userRepo: IUserRepo,
-    teamRepo: ITeamRepo,
-  ) {
-    this.userRepo = userRepo
-    this.teamRepo = teamRepo
-  }
+  constructor(
+    private userRepo: IUserRepo,
+    private teamRepo: ITeamRepo,
+  ) {}
 
   public async do(params: UpdateUserStatusParams): Promise<UserDTO> {
     const { userId, newUserStatus } = params

@@ -13,11 +13,7 @@ export type CreateUserParams = {
 }
 
 export class CreateUserUC {
-  private readonly userRepo: IUserRepo
-
-  public constructor(userRepo: IUserRepo) {
-    this.userRepo = userRepo
-  }
+  constructor(private userRepo: IUserRepo) {}
 
   public async do(params: CreateUserParams): Promise<User> {
     const { lastName, firstName, email } = params

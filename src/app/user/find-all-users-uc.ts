@@ -2,11 +2,7 @@ import { IUserRepo } from "src/domain/user/user-repo-interface"
 import { UserDTO } from "src/app/user/user-dto"
 
 export class FindAllUsersUC {
-  private readonly userRepo: IUserRepo
-
-  public constructor(userRepo: IUserRepo) {
-    this.userRepo = userRepo
-  }
+  constructor(private userRepo: IUserRepo) {}
 
   public async do(): Promise<UserDTO[]> {
     try {
