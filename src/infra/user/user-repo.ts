@@ -6,11 +6,7 @@ import { UserEmailVO } from "src/domain/user/user-email-vo"
 import { UserStatusVO, UserStatusProps, UserStatusId } from "src/domain/user/user-status-vo"
 
 export class UserRepo implements IUserRepo{
-  private prisma: PrismaClient
-
-  public constructor(prisma: PrismaClient) {
-    this.prisma = prisma
-  }
+  constructor(private prisma: PrismaClient) {}
 
   public async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany({
