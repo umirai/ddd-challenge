@@ -3,11 +3,7 @@ import { TeamDTO } from "src/app/team/team-dto"
 import { ITeamRepo } from "src/domain/team/team-repo-interface"
 
 export class FindAllTeamsUC {
-  private readonly teamRepo: ITeamRepo
-
-  public constructor(teamRepo: ITeamRepo) {
-    this.teamRepo = teamRepo
-  }
+  constructor(private teamRepo: ITeamRepo) {}
 
   public async do(): Promise<TeamDTO[]> {
     try {

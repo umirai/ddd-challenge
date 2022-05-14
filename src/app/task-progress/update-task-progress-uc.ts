@@ -9,11 +9,7 @@ export type UpdateTaskProgressParams = {
 }
 
 export class UpdateTaskProgressUC {
-  private readonly taskProgressRepo: ITaskProgressRepo
-
-  public constructor(taskProgressRepo: ITaskProgressRepo) {
-    this.taskProgressRepo = taskProgressRepo
-  }
+  constructor(private taskProgressRepo: ITaskProgressRepo) {}
 
   public async do(params: UpdateTaskProgressParams): Promise<TaskProgressVO> {
     const { userId, taskId, status } = params

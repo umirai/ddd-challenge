@@ -1,19 +1,11 @@
 import { FindTaskProgressPaginationParams } from "src/app/task-progress-pagenation/find-task-progress-pagination-uc";
 
 export class TaskProgressPaginationDTO {
-  public taskId: string
-  public statusId: number
-  public userId: string
-
-  public constructor(
-    taskId: string,
-    statusId: number,
-    userIdList: string
-  ) {
-    this.taskId = taskId
-    this.statusId = statusId
-    this.userId = userIdList
-  }
+  constructor(
+    public taskId: string,
+    public statusId: number,
+    public userIdList: string
+  ) {}
 }
 
 export interface ITaskProgressPaginationQS {

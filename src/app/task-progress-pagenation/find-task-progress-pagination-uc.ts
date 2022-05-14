@@ -7,11 +7,7 @@ export type FindTaskProgressPaginationParams = {
 }
 
 export class FindTaskProgressPaginationUC {
-  private taskProgressPaginationQS: ITaskProgressPaginationQS
-
-  public constructor(taskProgressPaginationQS: ITaskProgressPaginationQS) {
-    this.taskProgressPaginationQS = taskProgressPaginationQS
-  }
+  constructor(private taskProgressPaginationQS: ITaskProgressPaginationQS) {}
 
   public async do(
     params: FindTaskProgressPaginationParams
