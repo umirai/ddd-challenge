@@ -7,11 +7,7 @@ export const TaskStatusId = {
 export type TaskStatusProps = keyof typeof TaskStatusId
 
 export class TaskStatusVO {
-  private _value: TaskStatusProps
-
-  public constructor(value: TaskStatusProps) {
-    this._value = value
-  }
+  constructor(private _value: TaskStatusProps) {}
 
   get value() {
     return this._value

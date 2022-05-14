@@ -7,11 +7,7 @@ export type TaskProgressProps = {
 }
 
 export class TaskProgressVO {
-  private _props: TaskProgressProps
-
-  public constructor(props: TaskProgressProps) {
-    this._props = { ...props }
-  }
+  constructor(private _props: TaskProgressProps) {}
 
   get status() {
     return this._props.status.value
