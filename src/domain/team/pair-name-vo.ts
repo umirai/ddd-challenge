@@ -1,9 +1,6 @@
 export class PairNameVO {
-  private readonly _value: string
-
-  public constructor(value: string) {
-    if (this.isInvalid(value)) throw new Error('ペア名は1文字のアルファベットを指定してください。')
-    this._value = value
+  constructor(private _value: string) {
+    if (this.isInvalid(_value)) throw new Error('ペア名は1文字のアルファベットを指定してください。')
   }
 
   get value() {

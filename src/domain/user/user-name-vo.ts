@@ -1,9 +1,5 @@
 export class UserNameVO {
-  private _value: string
-
-  public constructor(value: string) {
-    this._value = value
-  }
+  constructor(private _value: string) {}
 
   get value() {
     return this._value

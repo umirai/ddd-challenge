@@ -7,13 +7,10 @@ import { createRandomIdString } from "src/util/randomIdString"
 
 
 export class TeamRebuilder {
-  private readonly userId: string
-  private readonly teamRepo: ITeamRepo
-
-  public constructor(userId: string, teamRepo: ITeamRepo) {
-    this.userId = userId
-    this.teamRepo = teamRepo
-  }
+  constructor(
+    private userId: string,
+    private teamRepo: ITeamRepo
+  ) {}
 
   public async updataUserStatus(newUserStatusVO: UserStatusVO): Promise<Team> {
     let newTeam = undefined

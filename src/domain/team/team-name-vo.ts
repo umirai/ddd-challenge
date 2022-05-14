@@ -1,9 +1,6 @@
 export class TeamNameVO {
-  private readonly _value: number
-
-  public constructor(value: number) {
-    if (this.isInvalid(value)) throw new Error('ペア名は3桁以下の数値を指定してください。')
-    this._value = value
+  constructor(private _value: number) {
+    if (this.isInvalid(_value)) throw new Error('ペア名は3桁以下の数値を指定してください。')
   }
 
   get value() {

@@ -7,11 +7,7 @@ export const UserStatusId = {
 export type UserStatusProps = keyof typeof UserStatusId
 
 export class UserStatusVO {
-  private _value: UserStatusProps
-
-  public constructor(value: UserStatusProps) {
-    this._value = value
-  }
+  constructor(private _value: UserStatusProps) {}
 
   get value() {
     return this._value
