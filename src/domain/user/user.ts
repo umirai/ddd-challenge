@@ -11,11 +11,7 @@ export type UserProps = {
 }
 
 export class User {
-  private _props: UserProps
-
-  public constructor(props: UserProps) {
-    this._props = { ...props }
-  }
+  constructor(private _props: UserProps) {}
 
   get status() {
     return this._props.status.value
