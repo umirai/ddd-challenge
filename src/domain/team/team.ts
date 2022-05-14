@@ -8,12 +8,10 @@ export type TeamProps = {
 }
 
 export class Team {
-  private _props: TeamProps
   private MIN_MEMBERS_COUNT = 3
 
-  public constructor(props: TeamProps) {
-    if (this.isInvalid(props.pairs)) throw new Error('チームには3名以上のメンバーが必要です。')
-    this._props = props
+  constructor(private _props: TeamProps) {
+    if (this.isInvalid(_props.pairs)) throw new Error('チームには3名以上のメンバーが必要です。')
   }
 
   get id() {

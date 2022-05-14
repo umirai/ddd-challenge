@@ -7,13 +7,11 @@ export type PairProps = {
 }
 
 export class Pair {
-  private _props: PairProps
   private MIN_MEMBERS_COUNT = 2
   private MAX_MEMBERS_COUNT = 3
 
-  public constructor(props: PairProps) {
-    if (this.isInvalid(props.userIdList)) throw new Error('ペアには2-3名の参加者が必要です。')
-    this._props = props
+  constructor(private _props: PairProps) {
+    if (this.isInvalid(_props.userIdList)) throw new Error('ペアには2-3名の参加者が必要です。')
   }
 
   get id() {
