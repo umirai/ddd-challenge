@@ -23,8 +23,6 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Summary
-はじめてDDD＋オニオンアーキテクチャでの実装に挑戦したポジトリです（DDDをハンズオンで実践する目的のため、若干の手抜き含む）。
-
 以下の資料で基礎知識を補填してから、プライベートの隙間時間で実装を行いました。
 
 ### 参考文献
