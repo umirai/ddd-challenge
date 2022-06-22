@@ -18,8 +18,10 @@
     "migrate:reset": "dotenv -e .env.dev -- prisma migrate reset --skip-seed",
     "migrate:seed": "dotenv -e .env.dev -- prisma migrate reset",
     "migrate:dev": "dotenv -e .env.dev -- prisma migrate dev",
-    "test": "dotenv -e .env.test -- jest --testPathIgnorePatterns=integration",
-    "test:integration": "yarn migrate:seed && dotenv -e .env.test -- jest --testPathPattern=integration"
+    "migrate:test": "dotenv -e .env.test -- prisma migrate reset",
+    "test": "yarn migrate:test && dotenv -e .env.test -- jest",
+    "test:unit": "dotenv -e .env.test -- jest --testPathIgnorePatterns=integration",
+    "test:integration": "yarn migrate:test && dotenv -e .env.test -- jest --testPathPattern=integration"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
