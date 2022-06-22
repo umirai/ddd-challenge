@@ -61,25 +61,28 @@ $ yarn start:prod
 # prisma setup
 $ yarn prisma:generate
 
-# db-test: migrate & seeding
-$ yarn migrate:test
-
 # db: reset
 $ yarn migrate:reset
 
 # db: reset & seeding
-$ yarn migrate:init
+$ yarn migrate:seed
 
 # db: migrate & seeding
 $ yarn migrate:dev
+
+# db-test: migrate & seeding
+$ yarn migrate:test
 ```
 
 ## Test
 
 ```bash
-# unit tests & db-reset
-$ yarn test:reset
-
-# unit tests
+# unit test & integration test
 $ yarn test
+
+# unit test
+$ yarn test:unit
+
+# integration tests
+$ yarn test:integration
 ```
