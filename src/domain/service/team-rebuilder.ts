@@ -5,7 +5,6 @@ import { ITeamRepo } from "src/domain/team/team-repo-interface"
 import { UserStatusVO } from "src/domain/user/user-status-vo"
 import { createRandomIdString } from "src/util/randomIdString"
 
-
 export class TeamRebuilder {
   constructor(
     private userId: string,
@@ -13,21 +12,17 @@ export class TeamRebuilder {
   ) {}
 
   public async updataUserStatus(newUserStatusVO: UserStatusVO): Promise<Team> {
-    let newTeam = undefined
-
     // 1. 加入処理
     if (newUserStatusVO.isActive()) {
       const minTeam = await this.teamRepo.findMinimunTeam()
       const minPair = minTeam.getMinimumPair()
-      newTeam = this.addUser(minTeam, minPair, this.userId)
+      const newTeam = this.addUser(minTeam, minPair, this.userId)
+      return newTeam
     }
 
     // 2. 離脱処理
-    if (!newUserStatusVO.isActive()){
-      const team = await this.teamRepo.findByUserId(this.userId)
-      newTeam = this.removeUser(team, this.userId)
-    }
-
+    const team = await this.teamRepo.findByUserId(this.userId)
+    const newTeam = this.removeUser(team, this.userId)
     return newTeam
   }
 
@@ -37,36 +32,28 @@ export class TeamRebuilder {
     userId: string
   ): Team {
 
-    let newTeam = undefined
-
     if (pair.canAcceptNewUser()) {
-
       pair.userIdList.push(userId)
-      newTeam = team
-
-    } else {
-
-      // a. ペア内からランダムに1名取得して削除
-      const randomUserId = pair.getRandomUserId()
-      const randomUserIdIndex = pair.userIdList.indexOf(randomUserId)
-      pair.userIdList.splice(randomUserIdIndex, 1)
-
-      // b. 新規ペア作成
-      const newPair = new Pair({
-        id: createRandomIdString(),
-        pairName: new PairNameVO(team.generateNonDuplicatePairName()),
-        userIdList: [randomUserId, userId]
-      })
-
-      // c. チームにペアを追加
-      team.pairs.push(newPair)
-
-      // e. チームを返却
-      newTeam = team
-
+      return team
     }
 
-    return newTeam
+    // a. ペア内からランダムに1名取得して削除
+    const randomUserId = pair.getRandomUserId()
+    const randomUserIdIndex = pair.userIdList.indexOf(randomUserId)
+    pair.userIdList.splice(randomUserIdIndex, 1)
+
+    // b. 新規ペア作成
+    const newPair = new Pair({
+      id: createRandomIdString(),
+      pairName: new PairNameVO(team.generateNonDuplicatePairName()),
+      userIdList: [randomUserId, userId]
+    })
+
+    // c. チームにペアを追加
+    team.pairs.push(newPair)
+
+    // e. チームを返却
+    return team
   }
 
   private removeUser(team: Team, userId: string): Team {
@@ -82,25 +69,22 @@ export class TeamRebuilder {
     // 2. ペアの参加者が1名以下で副作用
     if (pair.userIdList.length < pair.minMembersCount) {
 
+      // a. 他にペアがなければ管理者通知
       if (team.noPairsAvailableToJoin()) {
-
-        // a. 他にペアがなければ管理者通知
         return
-
-      } else {
-
-        // b-1. あぶれたペア・参加者を特定
-        const singleUserPair = team.pairs.find((pair) => pair.userIdList.length === 1)
-        const singleUserPairIndex = team.pairs.indexOf(singleUserPair)
-        const leftUserId = singleUserPair.userIdList[0]
-
-        // b-2. ペアを削除
-        team.pairs.splice(singleUserPairIndex, 1)
-
-        // b-3. あぶれた参加者はチーム内の最小ペアに合流
-        const minPair = team.getMinimumPair()
-        this.addUser(team, minPair, leftUserId)
       }
+
+      // b-1. あぶれたペア・参加者を特定
+      const singleUserPair = team.pairs.find((pair) => pair.userIdList.length === 1)
+      const singleUserPairIndex = team.pairs.indexOf(singleUserPair)
+      const leftUserId = singleUserPair.userIdList[0]
+
+      // b-2. ペアを削除
+      team.pairs.splice(singleUserPairIndex, 1)
+
+      // b-3. あぶれた参加者はチーム内の最小ペアに合流
+      const minPair = team.getMinimumPair()
+      this.addUser(team, minPair, leftUserId)
     }
 
     return team
