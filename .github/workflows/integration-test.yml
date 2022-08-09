@@ -1,0 +1,36 @@
+name: Integration Test
+
+on: pull_request
+
+jobs:
+  Integration-Test-Actions:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://root:test@localhost:5433/postgres?schema=public
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: postgres
+          POSTGRES_INITDB_ARGS: '--encoding=UTF-8'
+          TZ: 'Asia/Tokyo'
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5433:5432
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - run: yarn
+      - run: yarn prisma generate
+      - run: yarn prisma migrate deploy
+      - run: yarn prisma db seed
+      - run: yarn test:ci:integration
