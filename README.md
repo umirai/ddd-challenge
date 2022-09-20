@@ -23,7 +23,12 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Summary
-以下の資料で基礎知識を補填してから、プライベートの隙間時間で実装を行いました。
+
+### タイムライン
+参考文献で基礎知識を補填 ⇨ 実装
+
+- 2022年3月上旬： 参考文献読み込み期間
+- 2022年3月中旬〜4月上旬頃： 実装期間
 
 ### 参考文献
 - [ドメイン駆動設計 モデリング/実装ガイド](https://little-hands.booth.pm/items/1835632)
@@ -31,11 +36,7 @@
 - [ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本](https://www.amazon.co.jp/dp/B082WXZVPC/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)
 - [Clean Architecture 達人に学ぶソフトウェアの構造と設計](https://www.amazon.co.jp/Clean-Architecture-%E9%81%94%E4%BA%BA%E3%81%AB%E5%AD%A6%E3%81%B6%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A8%AD%E8%A8%88-Robert-C-Martin/dp/4048930656/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=1653750498&sr=1-1)
 
-### タイムライン
-- 2022年3月上旬： 参考文献読み込み期間
-- 2022年3月中旬〜4月上旬頃: 実装期間
-
-### それ以降に読んだ文献
+### 実装以降に読んだ関連文献
 - [セキュア・バイ・デザイン](https://www.amazon.co.jp/%E3%82%BB%E3%82%AD%E3%83%A5%E3%82%A2%E3%83%BB%E3%83%90%E3%82%A4%E3%83%BB%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-Dan-Bergh-Johnsson-ebook/dp/B09F697K2V/ref=sr_1_1?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=2IR1UALYIGV1I&keywords=%E3%82%BB%E3%82%AD%E3%83%A5%E3%82%A2%E3%83%90%E3%82%A4%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3&qid=1653750884&s=books&sprefix=%E3%82%BB%E3%82%AD%E3%83%A5%E3%82%A2%E3%83%90%E3%82%A4%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%2Cstripbooks%2C268&sr=1-1)
 - [実践ドメイン駆動設計](https://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88-%E3%83%B4%E3%82%A1%E3%83%BC%E3%83%B3%E3%83%BB%E3%83%B4%E3%82%A1%E3%83%BC%E3%83%8E%E3%83%B3-ebook/dp/B00UX9VJGW/ref=sr_1_3?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=16HHWUI7QOVIZ&keywords=%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88&qid=1653750914&s=digital-text&sprefix=%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%2Cdigital-text%2C215&sr=1-3)  
 
